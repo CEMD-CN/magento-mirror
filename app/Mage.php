@@ -3,34 +3,24 @@ define('DS', DIRECTORY_SEPARATOR);//使用简写
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(dirname(__FILE__)));//business process的目录
 Mage::register('original_include_path', get_include_path());//获得include的path列表
-if (defined('COMPILER_INCLUDE_PATH')) {
+if (defined('COMPILER_INCLUDE_PATH')) {//这就是config文件的作用
     $appPath = COMPILER_INCLUDE_PATH;
-    set_include_path($appPath . PS . Mage::registry('original_include_path'));
+    set_include_path($appPath . PS . Mage::registry('original_include_path'));//把app path 放入到include的path中去
     include_once COMPILER_INCLUDE_PATH . DS . "Mage_Core_functions.php";
-    include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";
+    include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";//自动加载方法
 } else {
-    /**
-     * Set include path
-     */
     $paths = array();
     $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'local';
     $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'community';
     $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'core';
     $paths[] = BP . DS . 'lib';
-
     $appPath = implode(PS, $paths);
     set_include_path($appPath . PS . Mage::registry('original_include_path'));
     include_once "Mage/Core/functions.php";
     include_once "Varien/Autoload.php";
 }
-
 Varien_Autoload::register();
 
-/**
- * Main Mage hub class
- *
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 final class Mage
 {
     /**
