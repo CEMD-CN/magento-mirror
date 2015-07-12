@@ -34,7 +34,7 @@ require_once $mageFilename;
 if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
 }
-#ini_set('display_errors', 1);
+#ini_set('display_errors', 1);//控制错误信息是否输出到页面
 umask(0);
 /* Store or website code */
 $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : '';
